@@ -25,6 +25,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Bitmap;
 import android.net.Uri;
 
+import android.graphics.Color;
+import android.widget.Toast;
+
 import android.app.NotificationChannel;
 
 public class MusicControlsNotification {
@@ -32,7 +35,7 @@ public class MusicControlsNotification {
 	private NotificationManager notificationManager;
 	private Notification.Builder notificationBuilder;
 	private int notificationID;
-	private MusicControlsInfos infos;
+	public MusicControlsInfos infos;
 	private Bitmap bitmapCover;
 	private String CHANNEL_ID;
 
@@ -71,8 +74,11 @@ public class MusicControlsNotification {
 		}
 		this.infos = newInfos;
 		this.createBuilder();
+		
+		//this.notificationId = newInfos.notiId;
+
 		Notification noti = this.notificationBuilder.build();
-		this.notificationManager.notify(this.notificationID, noti);
+		this.notificationManager.notify(newInfos.notiId, noti);
 	}
 
 	// Toggle the play/pause button
@@ -177,12 +183,14 @@ public class MusicControlsNotification {
 		}
 		
 		builder.setPriority(Notification.PRIORITY_MAX);
-
+		builder.setColor(Color.parseColor("#32acc4"));
+		builder.setColorized(true);
+	
 		//If 5.0 >= set the controls to be visible on lockscreen
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP){
 			builder.setVisibility(Notification.VISIBILITY_PUBLIC);
 		}
-
+		
 		//Set SmallIcon
 		boolean usePlayingIcon = infos.notificationIcon.isEmpty();
 		if(!usePlayingIcon){
