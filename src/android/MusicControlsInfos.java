@@ -20,6 +20,8 @@ public class MusicControlsInfos{
 	public String nextIcon;
 	public String closeIcon;
 	public String notificationIcon;
+	public Integer notiId;
+	public String notiData;
 
 	public MusicControlsInfos(JSONArray args) throws JSONException {
 		final JSONObject params = args.getJSONObject(0);
@@ -39,6 +41,8 @@ public class MusicControlsInfos{
 		this.nextIcon = params.getString("nextIcon");
 		this.closeIcon = params.getString("closeIcon");
 		this.notificationIcon = params.getString("notificationIcon");
+		this.notiId = params.getInt("notificationId");
+		this.notiData = params.getString("notificationData");
 	}
 
 }
