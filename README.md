@@ -16,6 +16,12 @@ Music controls for Cordova applications. Display a 'media' notification with pla
 - Create the media controls:
 ```javascript
 MusicControls.create({
+	// Primary Data Start
+	// Mandatory Options. Cannot be empty.
+	notificationId: 1334,
+	notificationData: 'Data',
+	color: "#32acc4",
+	// Primary Data End
     track       : 'Time is Running Out',		// optional, default : ''
 	artist      : 'Muse',						// optional, default : ''
     cover       : 'albums/absolution.jpg',		// optional, default : nothing
