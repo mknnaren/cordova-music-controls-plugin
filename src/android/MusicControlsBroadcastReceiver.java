@@ -33,7 +33,7 @@ public class MusicControlsBroadcastReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-
+		
 		if (this.cb != null){
 			String message = intent.getAction();
 
@@ -119,18 +119,18 @@ public class MusicControlsBroadcastReceiver extends BroadcastReceiver {
 							this.cb.success("{\"message\": \"music-controls-media-button-headset-hook\"}");
 							break;
 						default:
-							this.cb.success("{\"message\": \"" + message + "\"}");
+							this.cb.success("{\"message\": \"" + message + "\",\"data\": \""+this.musicControls.notification.infos.notiData+"\"}");
 							break;
 					}
 					this.cb = null;
 				}
 			} else if (message.equals("music-controls-destroy")){
 				// Close Button
-				this.cb.success("{\"message\": \"music-controls-destroy\"}");
+				this.cb.success("{\"message\": \"music-controls-destroy\", \"data\": \""+this.musicControls.notification.infos.notiData+"\"}");
 				this.cb = null;
 				this.musicControls.destroyPlayerNotification();
 			} else {
-				this.cb.success("{\"message\": \"" + message + "\"}");
+				this.cb.success("{\"message\": \"" + message + "\",\"data\": \""+this.musicControls.notification.infos.notiData+"\"}");
 				this.cb = null;
 			}
 
