@@ -26,7 +26,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 
 import android.graphics.Color;
-import android.widget.Toast;
 
 import android.app.NotificationChannel;
 
@@ -183,7 +182,7 @@ public class MusicControlsNotification {
 		}
 		
 		builder.setPriority(Notification.PRIORITY_MAX);
-		builder.setColor(Color.parseColor("#32acc4"));
+		builder.setColor(Color.parseColor(infos.color));
 		builder.setColorized(true);
 	
 		//If 5.0 >= set the controls to be visible on lockscreen
