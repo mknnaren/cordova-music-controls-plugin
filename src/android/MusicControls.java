@@ -28,7 +28,9 @@ import android.media.AudioManager;
 public class MusicControls extends CordovaPlugin {
 	private MusicControlsBroadcastReceiver mMessageReceiver;
 	public MusicControlsNotification notification;
-	private final int notificationID=7824;
+	private double rand = Math.random()*1000;
+	private int notId = (int) Math.round(rand);
+	public int notificationID = notId;
 	private AudioManager mAudioManager;
 	private PendingIntent mediaButtonPendingIntent;
 	private boolean mediaButtonAccess=true;
@@ -62,6 +64,10 @@ public class MusicControls extends CordovaPlugin {
 
 	public void destroyPlayerNotification(){
 		this.notification.destroy();
+	}
+
+	public void destroySinglePlayerNotification(int notiId){
+		this.notification.destroySingle(notiId);
 	}
 
 	@Override
