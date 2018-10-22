@@ -36,7 +36,9 @@ public class MusicControlsBroadcastReceiver extends BroadcastReceiver {
 		
 		if (this.cb != null){
 			String message = intent.getAction();
-
+			Bundle pextras = intent.getExtras();
+			int notiId = pextras.getInt("NOTIFICATION_ID");
+			String notiData = pextras.getString("NOTIFICATION_DATA");
 			if(message.equals(Intent.ACTION_HEADSET_PLUG)){
 				// Headphone plug/unplug
 				int state = intent.getIntExtra("state", -1);
@@ -119,18 +121,19 @@ public class MusicControlsBroadcastReceiver extends BroadcastReceiver {
 							this.cb.success("{\"message\": \"music-controls-media-button-headset-hook\"}");
 							break;
 						default:
-							this.cb.success("{\"message\": \"" + message + "\",\"data\": \""+this.musicControls.notification.infos.notiData+"\"}");
+							this.cb.success("{\"message\": \"" + message + "\",\"data\": \""+notiData+"\"}");
 							break;
 					}
 					this.cb = null;
 				}
 			} else if (message.equals("music-controls-destroy")){
 				// Close Button
-				this.cb.success("{\"message\": \"music-controls-destroy\", \"data\": \""+this.musicControls.notification.infos.notiData+"\"}");
+				this.cb.success("{\"message\": \"music-controls-destroy\", \"data\": \""+notiData+"\"}");
 				this.cb = null;
 				this.musicControls.destroyPlayerNotification();
 			} else {
-				this.cb.success("{\"message\": \"" + message + "\",\"data\": \""+this.musicControls.notification.infos.notiData+"\"}");
+				this.cb.success("{\"message\": \"" + message + "\",\"data\": \""+notiData+"\"}");
+				this.musicControls.destroySinglePlayerNotification(notiId);
 				this.cb = null;
 			}
 
