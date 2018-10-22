@@ -74,7 +74,7 @@ public class MusicControlsNotification {
 		this.infos = newInfos;
 		this.createBuilder();
 		
-		//this.notificationId = newInfos.notiId;
+		this.notificationID = newInfos.notiId;
 
 		Notification noti = this.notificationBuilder.build();
 		this.notificationManager.notify(newInfos.notiId, noti);
@@ -183,8 +183,7 @@ public class MusicControlsNotification {
 		
 		builder.setPriority(Notification.PRIORITY_MAX);
 		builder.setColor(Color.parseColor(infos.color));
-		builder.setColorized(true);
-	
+
 		//If 5.0 >= set the controls to be visible on lockscreen
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP){
 			builder.setVisibility(Notification.VISIBILITY_PUBLIC);
@@ -233,13 +232,21 @@ public class MusicControlsNotification {
 			/* Pause  */
 			nbControls++;
 			Intent pauseIntent = new Intent("music-controls-pause");
+			Bundle extras = new Bundle();
+			extras.putString("NOTIFICATION_DATA",infos.notiData);
+			extras.putInt("NOTIFICATION_ID", infos.notiId);
+			pauseIntent.putExtras(extras);
 			PendingIntent pausePendingIntent = PendingIntent.getBroadcast(context, 1, pauseIntent, 0);
 			builder.addAction(this.getResourceId(infos.pauseIcon, android.R.drawable.ic_media_pause), "", pausePendingIntent);
 		} else {
 			/* Play  */
 			nbControls++;
 			Intent playIntent = new Intent("music-controls-play");
-			PendingIntent playPendingIntent = PendingIntent.getBroadcast(context, 1, playIntent, 0);
+			Bundle extras = new Bundle();
+			extras.putString("NOTIFICATION_DATA",infos.notiData);
+			extras.putInt("NOTIFICATION_ID", infos.notiId);
+			playIntent.putExtras(extras);
+			PendingIntent playPendingIntent = PendingIntent.getBroadcast(context, infos.notiId, playIntent,  PendingIntent.FLAG_ONE_SHOT);
 			builder.addAction(this.getResourceId(infos.playIcon, android.R.drawable.ic_media_play), "", playPendingIntent);
 		}
 		/* Next */
@@ -284,5 +291,9 @@ public class MusicControlsNotification {
 
 	public void destroy(){
 		this.notificationManager.cancel(this.notificationID);
+	}
+
+	public void destroySingle(int notificationId){
+		this.notificationManager.cancel(notificationId);
 	}
 }
