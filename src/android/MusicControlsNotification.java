@@ -290,7 +290,7 @@ public class MusicControlsNotification {
 	}
 
 	public void destroy(){
-		this.notificationManager.cancel(this.notificationID);
+		this.notificationManager.cancelAll();
 	}
 
 	public void destroySingle(int notificationId){
