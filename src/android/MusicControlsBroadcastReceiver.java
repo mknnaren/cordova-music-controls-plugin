@@ -1,15 +1,12 @@
 package com.homerours.musiccontrols;
 
 import org.apache.cordova.CallbackContext;
-import org.apache.cordova.CordovaPlugin;
 
 import android.util.Log;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.content.BroadcastReceiver;
-import android.view.KeyEvent;
 
 public class MusicControlsBroadcastReceiver extends BroadcastReceiver {
 	private CallbackContext cb;
